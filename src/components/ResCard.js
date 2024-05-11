@@ -12,12 +12,12 @@ const ResCard = (props) => {
       <div className='w-[200px] h-[300px]  border-2 m-[10px] p-2'>
         <img
         className='h-30% w-full border-2'
-        src={IMAGE+resData?.card?.info?.imageId}
+        src={IMAGE+resData?.info?.cloudinaryImageId}
         alt="not found"
         />
-        <h3>{resData?.card?.info?.name}</h3>
-        <h3>{resData?.card?.info?.price}</h3>
-        <h3>{resData?.card?.info?.ratings?.aggregatedRating?.rating}</h3>
+        <h3>{resData?.info?.name}</h3>
+        <h3>{resData?.info?.price}</h3>
+        <h3>{resData?.info?.avgRating}</h3>
        
       </div>
     </div>

@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { Link } from 'react-router-dom';
 
 const Header = () => {
   
@@ -18,11 +19,11 @@ const Header = () => {
           <a href="#" class="text-white font-bold text-lg">Food Order App</a>
         </div>
         <div class="hidden md:flex space-x-4">
-          <a href="#" class="text-white hover:text-gray-300">Home</a>
-          <a href="#" class="text-white hover:text-gray-300">About</a>
-          <a href="#" class="text-white hover:text-gray-300">Services</a>
-          <a href="#" class="text-white hover:text-gray-300">Contact</a>
-          <a href="#" class="text-white hover:text-gray-300">{log}</a>
+         <Link to="/About" className='text-white'>About-Us</Link>
+         <Link to="/About" className='text-white'>Contact-Us</Link>
+         <Link to="/About" className='text-white'>Cart</Link>
+         <Link to="/About" className='text-white'></Link>
+         <button className={`text-white  ${log=="Login" ? "bg-green-500 h-[30px] p-1 rounded-lg text-white" : "bg-red-700 h-[30px] p-1 rounded-lg text-white"}`} onClick={()=>{log=="Login"?setLog("Logout"):setLog("Login")}}>{log}</button>
         </div>
       </div>
     </div>

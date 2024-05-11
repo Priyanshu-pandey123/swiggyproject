@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import Header from './Header'
+import { Link } from 'react-router-dom';
 import ResCard from './ResCard';
-import {resList} from '../utils/mockData';
 import Shimmer from './Shimmer';
 
 
@@ -9,10 +8,12 @@ const Body = () => {
      
   const [filterData,setfilterData]=useState(null);
   const [data,setdata]=useState(null);
+  const [realData,setrealData]=useState(null);
+   const [searchText,setText]=useState(null);
 
    const filteredTop=()=>{
      
-        const filter=filterData.filter((res)=>res?.card?.info?.ratings?.aggregatedRating?.rating>4);
+        const filter=realData.filter((res)=>res?.info?.avgRating > 4.5);
         setfilterData(filter);
    }
       useEffect(()=>{
@@ -21,20 +22,29 @@ const Body = () => {
       },[])
 
       const fetchData = async()=>{
-       const rawData=await fetch("https://www.swiggy.com/dapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=26.87560&lng=80.91150&restaurantId=637321&catalog_qa=undefined&isMenuUx4=true&submitAction=ENTER");
+       const rawData=await fetch("https://www.swiggy.com/dapi/restaurants/list/v5?lat=26.8467126&lng=80.9460872&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING");
        const json = await rawData.json();
-      
-       const apiData=await json?.data?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR.cards;
-      const finalData=await apiData[12]?.card?.card?.itemCards;
-      console.log("final data",finalData);
-      setdata(finalData);
-      setfilterData(finalData);
+       const apiData=await json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants;
+      setfilterData(apiData);
+      setdata(apiData);
+      setrealData(apiData);
       }
       {if(filterData==null) return <Shimmer/>}
   return (
     <div>
-      <Header/>
      <div className='flex flex-row'>
+      <div>
+        <input className='m-[10px] border-black' type='text' placeholder='search here...' value={searchText} onChange={(e)=>{
+          setText(e.target.value);
+        }}></input>
+        <button className='bg-black text-white m-2 p-1 rounded-3xl' onClick={()=>{
+            const searchData = realData.filter((res)=>
+              res?.info?.name.toLowerCase().includes(searchText.toLowerCase())
+            );
+            setfilterData(searchData);
+
+        }}>Search</button>
+      </div>
     <div>
        <button className='bg-black text-white m-2 p-1 ' onClick={filteredTop}>TOP RATED RESTAURANT</button>
      </div>
@@ -49,10 +59,16 @@ const Body = () => {
      
      {
         filterData.map((res)=>(
-          <ResCard
-          key={res?.card?.info?.id}
+        <Link
+        key={res?.info?.id}
+        to={"/restaurant/"+res?.info?.id}>
+        
+        <ResCard
+          
           resData={res}
         />
+
+        </Link>
         ))
 
 
