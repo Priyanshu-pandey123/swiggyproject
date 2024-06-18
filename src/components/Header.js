@@ -1,8 +1,11 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom';
+import useOnlineStatus from '../utils/useOnlineStatus';
 
 const Header = () => {
   
+  const status=true;
+    console.log(status,"status")
   const [log,setLog]=useState("Login");
 
   return (
@@ -19,6 +22,7 @@ const Header = () => {
           <a href="#" class="text-white font-bold text-lg">Food Order App</a>
         </div>
         <div class="hidden md:flex space-x-4">
+          <div className={status ? "h-[30px] w-[30px] rounded-full bg-green-500" :"h-[30px] w-[30px] rounded-full bg-red-500" }></div>
          <Link to="/About" className='text-white'>About-Us</Link>
          <Link to="/About" className='text-white'>Contact-Us</Link>
          <Link to="/About" className='text-white'>Cart</Link>

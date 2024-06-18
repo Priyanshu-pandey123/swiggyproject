@@ -1,35 +1,52 @@
-import React, { useEffect, useState } from 'react'
+
 import { Link } from 'react-router-dom';
-import ResCard from './ResCard';
+import { useState,useEffect } from 'react';
+import { MAIN_DATA } from '../utils/constant';
+import ResCard ,{WithPromotedLabel}  from './ResCard';
 import Shimmer from './Shimmer';
+import useOnlineStatus from '../utils/useOnlineStatus';
+
+
+
 
 
 const Body = () => {
-     
+  const [searchText,setText]=useState(null);
+  // const [filterData ,setfilterData,data,realData]=useRestaurantData();
   const [filterData,setfilterData]=useState(null);
   const [data,setdata]=useState(null);
   const [realData,setrealData]=useState(null);
-   const [searchText,setText]=useState(null);
+  const PromotedLabel=WithPromotedLabel(ResCard);
+  
 
-   const filteredTop=()=>{
-     
-        const filter=realData.filter((res)=>res?.info?.avgRating > 4.5);
-        setfilterData(filter);
-   }
+
       useEffect(()=>{
         fetchData();
         console.log("useEffect");
       },[])
 
       const fetchData = async()=>{
-       const rawData=await fetch("https://www.swiggy.com/dapi/restaurants/list/v5?lat=26.8467126&lng=80.9460872&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING");
+       const rawData=await fetch(MAIN_DATA);
        const json = await rawData.json();
        const apiData=await json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants;
+       console.log(apiData,"apiDAta");
       setfilterData(apiData);
       setdata(apiData);
       setrealData(apiData);
       }
-      {if(filterData==null) return <Shimmer/>}
+
+  
+   const filteredTop=()=>{
+     
+        const filter=realData.filter((res)=>res?.info?.avgRating > 4.5);
+        setfilterData(filter);
+   }
+
+   console.log(realData,"form Body");
+
+   const status = useOnlineStatus();
+   if(status==false ) return <h1> Looks ! like YOu Are offline </h1>
+  {if(filterData==null) return <Shimmer/>}
   return (
     <div>
      <div className='flex flex-row'>
@@ -63,15 +80,15 @@ const Body = () => {
         key={res?.info?.id}
         to={"/restaurant/"+res?.info?.id}>
         
-        <ResCard
+
+        {res.info.isOpen ? ( <PromotedLabel resData={res} /> ): (<ResCard resData={res} />)}
+        {/* <ResCard
           
           resData={res}
-        />
+        /> */}
 
         </Link>
         ))
-
-
      }
 
      </div>
