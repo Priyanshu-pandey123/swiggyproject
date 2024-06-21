@@ -3,7 +3,7 @@ import { IMAGE } from '../utils/mockData';
 
 const ResCard = (props) => {
   const {resData}=props;
-  console.log(resData,"ResData");
+
 
 
   return (

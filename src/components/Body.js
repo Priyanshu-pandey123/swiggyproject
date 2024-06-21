@@ -22,14 +22,12 @@ const Body = () => {
 
       useEffect(()=>{
         fetchData();
-        console.log("useEffect");
       },[])
 
       const fetchData = async()=>{
        const rawData=await fetch(MAIN_DATA);
        const json = await rawData.json();
-       const apiData=await json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants;
-       console.log(apiData,"apiDAta");
+       const apiData=await json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants; 
       setfilterData(apiData);
       setdata(apiData);
       setrealData(apiData);
@@ -42,7 +40,6 @@ const Body = () => {
         setfilterData(filter);
    }
 
-   console.log(realData,"form Body");
 
    const status = useOnlineStatus();
    if(status==false ) return <h1> Looks ! like YOu Are offline </h1>
