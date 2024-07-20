@@ -25,17 +25,18 @@ const ResCard = (props) => {
 }
 
 
-export const WithPromotedLabel=(ResCard)=>{
- return (props) =>{
-  return (
-      <div>
-        <label className='h-[50px w-[]150px] text-white bg-black absolute   m-3'>open</label>
-        <ResCard {...props}/>
-      </div>
-  )
+export const withPromotedLable=(ResCard)=>{
+  return (res)=>{
+    return<>
+    <label className='p1-1 px-5 rounded-r-lg-lg ml-3 mt-3 bg-black text-white absolute  ' >open</label>
+    <ResCard {...res}/>   
+    </>
 
- }
+
+
+  }
 }
+
 
 
 export default ResCard;

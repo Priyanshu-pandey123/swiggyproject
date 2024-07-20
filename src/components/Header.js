@@ -1,12 +1,16 @@
-import React, { useState } from 'react'
+import React, { useState,useContext } from 'react'
 import { Link } from 'react-router-dom';
-import useOnlineStatus from '../utils/useOnlineStatus';
+import UserContext from '../utils/UserContext';
+import { useSelector } from 'react-redux';
+
 
 const Header = () => {
   
   const status=true;
     console.log(status,"status")
   const [log,setLog]=useState("Login");
+  const {loggedUser}=useContext(UserContext);
+  const cartItems=useSelector((store)=>store.cart.items);
 
   return (
     <div>
@@ -23,11 +27,12 @@ const Header = () => {
         </div>
         <div class="hidden md:flex space-x-4">
           <div className={status ? "h-[30px] w-[30px] rounded-full bg-green-500" :"h-[30px] w-[30px] rounded-full bg-red-500" }></div>
+          <Link to="/" className='text-white'>Home</Link>
          <Link to="/About" className='text-white'>About-Us</Link>
          <Link to="/About" className='text-white'>Contact-Us</Link>
-         <Link to="/About" className='text-white'>Cart</Link>
+         <Link to="/cart" className='text-white'>Cart-{cartItems.length}</Link>
          <Link to="/About" className='text-white'></Link>
-         <button className={`text-white  ${log=="Login" ? "bg-green-500 h-[30px] p-1 rounded-lg text-white" : "bg-red-700 h-[30px] p-1 rounded-lg text-white"}`} onClick={()=>{log=="Login"?setLog("Logout"):setLog("Login")}}>{log}</button>
+         <button className={`text-white  ${log=="Login" ? "bg-green-500 h-[30px] p-1 rounded-lg text-white" : "bg-red-700 h-[30px] p-1 rounded-lg text-white"}`} onClick={()=>{log=="Login"?setLog("Logout"):setLog("Login")}}>{log}{loggedUser}</button>
         </div>
       </div>
     </div>

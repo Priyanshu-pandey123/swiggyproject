@@ -1,10 +1,12 @@
 
 import { Link } from 'react-router-dom';
-import { useState,useEffect } from 'react';
+import { useState,useEffect ,useContext} from 'react';
 import { MAIN_DATA } from '../utils/constant';
-import ResCard ,{WithPromotedLabel}  from './ResCard';
+import ResCard ,{withPromotedLable}  from './ResCard';
 import Shimmer from './Shimmer';
 import useOnlineStatus from '../utils/useOnlineStatus';
+import UserContext from '../utils/UserContext';
+import RestaurantMenu from './RestaurantMenu';
 
 
 
@@ -16,7 +18,9 @@ const Body = () => {
   const [filterData,setfilterData]=useState(null);
   const [data,setdata]=useState(null);
   const [realData,setrealData]=useState(null);
-  const PromotedLabel=WithPromotedLabel(ResCard);
+  const {loggedUser,setUser}=useContext(UserContext);
+
+  const WithPromotedResCard=withPromotedLable(ResCard);
   
 
 
@@ -31,7 +35,7 @@ const Body = () => {
       setfilterData(apiData);
       setdata(apiData);
       setrealData(apiData);
-      }
+      console.log(apiData);      }
 
   
    const filteredTop=()=>{
@@ -48,16 +52,22 @@ const Body = () => {
     <div>
      <div className='flex flex-row'>
       <div>
-        <input className='m-[10px] border-black' type='text' placeholder='search here...' value={searchText} onChange={(e)=>{
-          setText(e.target.value);
-        }}></input>
+        
         <button className='bg-black text-white m-2 p-1 rounded-3xl' onClick={()=>{
             const searchData = realData.filter((res)=>
               res?.info?.name.toLowerCase().includes(searchText.toLowerCase())
             );
             setfilterData(searchData);
 
-        }}>Search</button>
+        }}>Search</button><input className='m-[10px] border-black' type='text' placeholder='search here...' value={searchText} onChange={(e)=>{
+          setText(e.target.value);
+        }}></input>
+
+
+       <input className='m-[10px] border-black' type='text' placeholder='search here...' value={loggedUser} onChange={(e)=>{
+          setUser(e.target.value);
+        }}></input>
+
       </div>
     <div>
        <button className='bg-black text-white m-2 p-1 ' onClick={filteredTop}>TOP RATED RESTAURANT</button>
@@ -77,12 +87,12 @@ const Body = () => {
         key={res?.info?.id}
         to={"/restaurant/"+res?.info?.id}>
         
-
-        {res.info.isOpen ? ( <PromotedLabel resData={res} /> ): (<ResCard resData={res} />)}
-        {/* <ResCard
-          
-          resData={res}
-        /> */}
+          {
+             res.info.isOpen ?
+             (<WithPromotedResCard resData={res}/> )
+             :(<ResCard resData={res}/>)
+          }
+       
 
         </Link>
         ))

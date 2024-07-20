@@ -9,6 +9,7 @@ import Contact from './components/Contact';
 import Error from './components/Error';
 import Body from './components/Body';
 import RestaurantMenu from './components/RestaurantMenu';
+import Cart from './components/Cart';
 
 
 
@@ -32,6 +33,9 @@ const router=createBrowserRouter([
       },{
         path:"/restaurant/:resId",
         element:<RestaurantMenu/>
+      },{
+        path:"/cart",
+        element:<Cart/>
       }
 
     ],
