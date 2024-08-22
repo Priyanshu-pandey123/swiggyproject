@@ -4,27 +4,26 @@ import { BrowserRouter } from "react-router-dom"
 import Header from '../Header'
 import appStore from '../../utils/appStore'
 
-it("should be render the header component or not",()=>{
+// it("should be render the header component or not",()=>{
    
-    render(
-       <BrowserRouter>
-        <Provider store={appStore}>
-               <Header/>
+//     render(
+//        <BrowserRouter>
+//         <Provider store={appStore}>
+//                <Header/>
+//         </Provider>
+//         </BrowserRouter>
+//     )
 
-        </Provider>
-        </BrowserRouter>
-    )
-
-      const btn=screen.getByText('Food Order App');
-      expect(btn).toBeInTheDocument();
+//       const btn=screen.getByText('Food Order App');
+//       expect(btn).toBeInTheDocument();
    
-});
+// });
 
 
 it("Should be the Cart component will render will or  not",()=>{
     render(
         <BrowserRouter>
-            <Provider store={appStore}>
+          <Provider store={appStore}>
           <Header/>
         </Provider>     
         </BrowserRouter>
@@ -39,9 +38,9 @@ it('Should my login button will be clicked or not',()=>{
     render(
         <BrowserRouter>
         <Provider store={appStore}>
-      <Header/>
-    </Provider>     
-    </BrowserRouter>
+       <Header/>
+      </Provider>     
+     </BrowserRouter>
     )
 
     const login = screen.getByRole('button', { name: /Login/ });

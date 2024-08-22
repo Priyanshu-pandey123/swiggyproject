@@ -13,18 +13,18 @@ const Header = () => {
 
   return (
     <div>
-    <nav class="bg-gray-800 p-4">
-    <div class="max-w-7xl mx-auto px-4">
-      <div class="flex justify-between">
+    <nav className="bg-gray-800 p-4">
+    <div className="max-w-7xl mx-auto px-4">
+      <div className="flex justify-between">
         <img
         className='h-[120px] w-[120px] mr-[-10px]'
          src="https://c8.alamy.com/comp/PCYG1J/pizzeria-fast-food-logo-or-label-happy-chef-holding-pizza-and-scapula-in-hands-vector-illustration-PCYG1J.jpg"
          alt="not found"
         />
-        <div class="flex-shrink-0">
-          <a href="#" class="text-white font-bold text-lg">Food Order App</a>
+        <div className="flex-shrink-0">
+          <a href="#" className="text-white font-bold text-lg">Food Order App</a>
         </div>
-        <div class="hidden md:flex space-x-4">
+        <div className="hidden md:flex space-x-4">
           <div className={status ? "h-[30px] w-[30px] rounded-full bg-green-500" :"h-[30px] w-[30px] rounded-full bg-red-500" }></div>
           <Link to="/" className='text-white'>Home</Link>
          <Link to="/About" className='text-white'>About-Us</Link>

@@ -2,7 +2,9 @@ import React from 'react'
 import { IMAGE } from '../utils/mockData';
 
 const ResCard = (props) => {
+ 
   const {resData}=props;
+  
 
 
 

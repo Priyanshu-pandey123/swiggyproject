@@ -35,7 +35,7 @@ const Body = () => {
       setfilterData(apiData);
       setdata(apiData);
       setrealData(apiData);
-      console.log(apiData);      }
+            }
 
   
    const filteredTop=()=>{
@@ -48,7 +48,7 @@ const Body = () => {
    const status = useOnlineStatus();
    if(status==false ) return <h1> Looks ! like YOu Are offline </h1>
   {if(filterData==null) return <Shimmer/>}
-  return (
+   return (
     <div>
      <div className='flex flex-row'>
       <div>
@@ -59,7 +59,11 @@ const Body = () => {
             );
             setfilterData(searchData);
 
-        }}>Search</button><input className='m-[10px] border-black' type='text' placeholder='search here...' value={searchText} onChange={(e)=>{
+        }}>
+          Search 
+          </button>
+
+          <input className='m-[10px] border-black' type='text' placeholder='search here' value={searchText} onChange={(e)=>{
           setText(e.target.value);
         }}></input>
 
